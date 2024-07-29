@@ -1,32 +1,41 @@
-import Home from "./pages/Home.jsx";
-import About from "./pages/About.jsx";
-import Resume from "./pages/Resume.jsx";
-import Navigation from "./components/Navigation.jsx";
-import { createBrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
+import styled from "styled-components";
 
-function Root() {
-  return (
-      <>
-        <Navigation/>
-        <Routes>
-          <Route path="/About/*" element={<About/>}/>
-          <Route path="/Resume/*" element={<Resume/>}/>
-        </Routes>
-      </>
-  );
-}
+import { useTypewriter, Cursor } from "react-simple-typewriter";
 
-const router = createBrowserRouter(
-  [{path:"*", Component: Root}]
-)
+const StyledDiv = styled.div`
+    margin: auto;
+    text-align: center;
+`;
+
+const StyledHeader = styled.h1`
+    font-family: "American Typewriter", serif;
+    font-weight: 400;
+`;
+
+const StyledSpan = styled.span`
+    color: green;
+    font-weight: bold;
+`;
 
 export default function App() {
+    const [text] = useTypewriter({
+        words: ['CS 411', 'HI 250', 'CS 330', 'EN 340'],
+        loop: {},
+        typeSpeed: 100,
+        deleteSpeed: 60,
+        delaySpeed: 2000,
+    });
 
-  return (
-    <>
-      <RouterProvider router={router}/>
-      <Home/>
-      <About/>
-    </>
-  )
+    return (
+        <StyledDiv>
+            <StyledHeader>I am a Boston University Student.</StyledHeader>
+            <StyledHeader>
+                Next semester I'm taking: {' '}
+                <StyledSpan>
+                    {text}
+                    <Cursor/>
+                </StyledSpan>
+            </StyledHeader>
+        </StyledDiv>
+    );
 }
